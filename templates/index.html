@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sarcasm Detection</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #090925; /* deep blue */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Card Container */
+        .container {
+            background-color: #dcad67; /* darker beige */
+            padding: 40px 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 500px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        /* Heading */
+        h2 {
+            color: #004181; /* deep blue */
+            margin-bottom: 25px;
+        }
+
+        /* Textarea Styling */
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            resize: none;
+            font-size: 16px;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            border-color: #003366;
+            box-shadow: 0 0 10px rgba(0, 51, 102, 0.2);
+            outline: none;
+        }
+
+        /* Button Styling */
+        button {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: #004181; /* bright blue */
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #144274;
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* Prediction Result Styling */
+        .result {
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sarcastic {
+            color: #b30000; /* red */
+            background-color: #ffe6e6;
+        }
+
+        .non-sarcastic {
+            color: #004d00; /* green */
+            background-color: #e6ffe6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sarcasm Detection</h2>
+        <form action="/predict" method="post">
+            <textarea name="message" rows="4" cols="50" placeholder="Enter headline here...">{{ user_input }}</textarea><br>
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if output is not none %}
+            <div class="result {% if output == 'Sarcastic' %}sarcastic{% else %}non-sarcastic{% endif %}">
+                Result: {{ output }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
